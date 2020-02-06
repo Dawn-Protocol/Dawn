@@ -1,0 +1,67 @@
+version: '3'
+
+services:
+  dawnnode1:
+    container_name: dawnnode1
+    image: "tendermint/dawnnode"
+    ports:
+      - "26656-26657:26656-26657"
+    environment:
+      - ID=1
+      - LOG=${LOG:-dawnd.log}
+    volumes:
+      - ./testnet:/dawnd:Z
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.2
+
+  dawnnode2:
+    container_name: dawnnode2
+    image: "tendermint/dawnnode"
+    ports:
+      - "26659-26660:26656-26657"
+    environment:
+      - ID=2
+      - LOG=${LOG:-dawnd.log}
+    volumes:
+      - ./testnet:/dawnd:Z
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.3
+
+  dawnnode3:
+    container_name: dawnnode3
+    image: "tendermint/dawnnode"
+    environment:
+      - ID=3
+      - LOG=${LOG:-dawnd.log}
+    ports:
+      - "26661-26662:26656-26657"
+    volumes:
+      - ./testnet:/dawnd:Z
+    networks:
+      localnet:
+        ipv4_address: 192.168.10.4
+
+  # dawnnode4:
+  #   container_name: dawnnode4
+  #   image: "tendermint/dawnnode"
+  #   environment:
+  #     - ID=4
+  #     - LOG=${LOG:-dawnd.log}
+  #   ports:
+  #     - "26663-26664:26656-26657"
+  #   volumes:
+  #     - ./testnet:/dawnd:Z
+  #   networks:
+  #     localnet:
+  #       ipv4_address: 192.168.10.5
+
+networks:
+  localnet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+      -
+        subnet: 192.168.10.0/16
