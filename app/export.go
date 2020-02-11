@@ -23,6 +23,6 @@ func (app *EthereumBridgeApp) ExportAppStateAndValidators(forZeroHeight bool, ja
 		return nil, nil, err
 	}
 
-	validators = staking.WriteValidators(ctx, app.StakingKeeper)
+	validators = staking.WriteValidators(ctx, app.stakingKeeper)
 	return appState, validators, nil
 }
